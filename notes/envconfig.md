@@ -169,7 +169,7 @@ Até o momento, precisamos rodar o yarn webpack e fazer o build/conversão da ap
 E no arquivo webpack.config.js:
 
     devServer: {
-        contentBase: path.resolve(__dirname, 'public') //Caminho onde está o html estático da aplicação.
+        static: path.resolve(__dirname, 'public') //Caminho onde está o html estático da aplicação.
     },
 
 E no terminal:
@@ -182,7 +182,7 @@ Configuração do webpack que é basicamente uma forma de conseguir visualizar o
 
 Para isso, configurar no webpack.config.js:
 
-devTools: 'eval-source-map', //Webpack-dev-server para ambiente de desenvolvimento.
+devtool: 'eval-source-map', //Webpack-dev-server para ambiente de desenvolvimento.
 
 # Ambiente dev e produção
 
@@ -194,7 +194,7 @@ No arquivo webpack.config.js:
 const isDevelopment = process.env.NODE_ENV !== 'production';
 module.exports = {
     mode: isDevelopment ? 'development' : 'production',
-    devTools: isDevelopment ? 'eval-source-map' : 'source-map',
+    devtool: isDevelopment ? 'eval-source-map' : 'source-map',
 ...}
 
 Para criar a variável de ambiente, no Linux ou Mac, basta executar no terminal:

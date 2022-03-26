@@ -1,4 +1,5 @@
 import React from "react";
 import { render } from "react-dom";
+import RepositoryList from "./components/RepositoryList";
 
-render(<h1>Teste</h1>, document.getElementById('root'))
+render(<RepositoryList />, document.getElementById('root'))

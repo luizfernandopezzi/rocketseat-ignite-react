@@ -12,7 +12,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     mode: isDevelopment ? 'development' : 'production',
-    devTools: isDevelopment ? 'eval-source-map' : 'source-map',
+    devtool: isDevelopment ? 'eval-source-map' : 'source-map',
     entry: path.resolve(__dirname, 'src', 'index.jsx'), //Qual é o arquivo principal/incial da aplicação.
     output: { //Define-se o diretório de saída do build do webpack.
         path: path.resolve(__dirname, 'dist'),
@@ -22,7 +22,7 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
     devServer: {
-        contentBase: path.resolve(__dirname, 'public') //Caminho onde está o html estático da aplicação.
+        static: path.resolve(__dirname, 'public'), //Caminho onde está o html estático da aplicação.
     },
     plugins: [
         new HtmlWebpackPlugin({
