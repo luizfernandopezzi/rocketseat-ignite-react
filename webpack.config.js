@@ -7,6 +7,7 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -23,18 +24,27 @@ module.exports = {
     },
     devServer: {
         static: path.resolve(__dirname, 'public'), //Caminho onde está o html estático da aplicação.
+        hot: true
     },
     plugins: [
+        isDevelopment && new ReactRefreshWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'public', 'index.html') //Qual arquivo de template será utilizado para gerar o HTML da aplicação ("virtual-dom".)
         })
-    ],
+    ].filter(Boolean),
     module: { //Congirações d webpack responsáveis por determinar como nossa aplicação vai se comportar ao importarmos cada tipo de arquivo (.js, .jpeg, .png, .css, etc...).
         rules: [
             {
                 test: /\.jsx$/, //Recebe uma expressão regular para avaliar se o arquivo é .js, devolvendo true ou fales.
                 exclude: /node_modules/, //A responsabilidade de conversão/build dos arquivos das biblitocas é de responsabilidade das próprias bibliotecas.
-                use: 'babel-loader' //yarn add babel-loader: integração entre Babel e Webpack. O webpack identifica que precisa importar determinado tipo de arquivo (.jsx por exemplo), e através do babel-loader sabe que tem que usar o babel para converter o arquivo de maneira compreedível para o browser.
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        plugins: [
+                            isDevelopment && require.resolve('react-refresh/babel')
+                        ].filter(Boolean)
+                    }
+                } //yarn add babel-loader: integração entre Babel e Webpack. O webpack identifica que precisa importar determinado tipo de arquivo (.jsx por exemplo), e através do babel-loader sabe que tem que usar o babel para converter o arquivo de maneira compreedível para o browser.
             },
             {
                 test: /\.scss$/,
