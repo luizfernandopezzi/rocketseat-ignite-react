@@ -1,30 +1,30 @@
 import React from "react"
 import { useEffect, useState } from "react"
 import RepositoryItem from "./RepositoryItem"
+import '../styles/repositorylist.scss'
 
 export default function RepositoryList(){
-    const [ repos, setRepos ] = useState()
+    const [ repos, setRepos ] = useState([])
 
-    // const getRepos = async() => {
-    //     const res = await fetch('https://api.github.com/users/luizfernandopezzi')
-    //     const data = await res.json()
-    //     setRepos(data)
-    //     console.log(data)
-    // }
+    const getRepos = () => {
+        fetch('https://api.github.com/users/luizfernandopezzi/repos')
+            .then( res => res.json() )
+            .then( data => setRepos(data) )
+    }
     
-    // useEffect(async()=>{
-    //     await getRepos()
-    // },[])
-    
-    const reposArr = ['a', 'b', 'c']
+    useEffect(()=>{
+        getRepos()
+    },[])
+
+    const repositories = [1,2,3]
 
     return(
         <section className="repository-list">
             <h1>Lista de Repositórios</h1>
             <ul>
-                {reposArr.map((item, index)=>
-                    <RepositoryItem key={index} item={item}/>
-                )}
+                {repositories.map((item, index)=> {
+                    return <RepositoryItem key={index} item={item}/>
+                })}
             </ul>
         </section>
     )
