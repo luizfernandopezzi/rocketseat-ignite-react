@@ -14,13 +14,13 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 module.exports = {
     mode: isDevelopment ? 'development' : 'production',
     devtool: isDevelopment ? 'eval-source-map' : 'source-map',
-    entry: path.resolve(__dirname, 'src', 'index.jsx'), //Qual é o arquivo principal/incial da aplicação.
+    entry: path.resolve(__dirname, 'src', 'index.tsx'), //Qual é o arquivo principal/incial da aplicação.
     output: { //Define-se o diretório de saída do build do webpack.
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
     resolve: { //Por padrão o webpack lê apenas os arquivos .js. Aqui, define-se que ele também deve ler a extensão .jsx.
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
     },
     devServer: {
         static: path.resolve(__dirname, 'public'), //Caminho onde está o html estático da aplicação.
@@ -35,7 +35,7 @@ module.exports = {
     module: { //Congirações d webpack responsáveis por determinar como nossa aplicação vai se comportar ao importarmos cada tipo de arquivo (.js, .jpeg, .png, .css, etc...).
         rules: [
             {
-                test: /\.jsx$/, //Recebe uma expressão regular para avaliar se o arquivo é .js, devolvendo true ou fales.
+                test: /\.(j|t)sx$/, //Recebe uma expressão regular para avaliar se o arquivo é .js, devolvendo true ou fales.
                 exclude: /node_modules/, //A responsabilidade de conversão/build dos arquivos das biblitocas é de responsabilidade das próprias bibliotecas.
                 use: {
                     loader: 'babel-loader',
@@ -49,7 +49,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: /node_modules/,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader', 'sass-loader']
             }
         ]
     }

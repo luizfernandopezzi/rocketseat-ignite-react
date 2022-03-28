@@ -149,7 +149,7 @@ yarn add html-webpack-plugin -D
 
 Através do html-webpack-plugin o arquivo bundle é injetado no HTML sem a necessidade de incluir a tag <scipt>. Para isso, em webpack.config.js:
 
-yarn add html-webpack-plugin
+yarn add html-webpack-plugin -D
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 plugins: [
